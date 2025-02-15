@@ -141,7 +141,7 @@ export default function HomePage() {
             {/* Main Content */}
             <main className="flex-1 mt-16">
                 {/* Hero Section */}
-                <header className="h-screen relative w-full bg-gradient-to-r from-black via-gray-900 to-gray-800 text-white pt-32 pb-40 text-center px-6">
+                <header className="h-screen relative w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-32 pb-40 text-center px-6">
                     {/* Background Overlay */}
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 

@@ -26,7 +26,7 @@ export default function Navbar() {
     }, [isMenuOpen]);
 
     return (
-        <nav className="w-full bg-gradient-to-r from-black to-gray-900 text-white fixed top-0 z-50 shadow-md">
+        <nav className="w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white fixed top-0 z-50 shadow-md">
             <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
                 <div className="flex justify-between items-center py-4">
                     {/* Logo */}
