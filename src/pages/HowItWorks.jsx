@@ -4,17 +4,17 @@ import { Link } from "react-router-dom";
 const HowItWorks = () => {
   const steps = [
     {
-      icon: <FaSearch className="text-5xl text-blue-500 mb-3" />,
+      icon: <FaSearch className="text-6xl text-blue-500 mb-4" />,
       title: "Analyze Content",
       description: "Our AI scans and analyzes news articles and social media content.",
     },
     {
-      icon: <FaCheckCircle className="text-5xl text-green-500 mb-3" />,
+      icon: <FaCheckCircle className="text-6xl text-green-500 mb-4" />,
       title: "Verify Accuracy",
       description: "Cross-checks information with trusted sources to verify authenticity.",
     },
     {
-      icon: <FaShieldAlt className="text-5xl text-red-500 mb-3" />,
+      icon: <FaShieldAlt className="text-6xl text-red-500 mb-4" />,
       title: "Flag Fake News",
       description: "Identifies and flags misleading or false information for users.",
     },
@@ -22,17 +22,17 @@ const HowItWorks = () => {
 
   const features = [
     {
-      icon: <FaNewspaper className="text-4xl text-yellow-500 mb-3" />,
+      icon: <FaNewspaper className="text-5xl text-yellow-500 mb-4" />,
       title: "Real-time News Analysis",
       description: "Get instant results on whether an article is fake or authentic.",
     },
     {
-      icon: <FaRobot className="text-4xl text-purple-500 mb-3" />,
+      icon: <FaRobot className="text-5xl text-purple-500 mb-4" />,
       title: "AI-Powered Detection",
       description: "Advanced AI models analyze content with high accuracy.",
     },
     {
-      icon: <FaInfoCircle className="text-4xl text-teal-500 mb-3" />,
+      icon: <FaInfoCircle className="text-5xl text-teal-500 mb-4" />,
       title: "Reliable Sources",
       description: "We verify content with trusted and legitimate news platforms.",
     },
@@ -56,50 +56,50 @@ const HowItWorks = () => {
   return (
     <div className="max-w-6xl mx-auto py-16 px-6 mt-5">
       {/* Header Section */}
-      <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-        How It Works
+      <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        How NewsFact Works
       </h2>
 
       {/* Steps Section */}
-      <div className="grid md:grid-cols-3 gap-8 mb-16">
+      <div className="grid md:grid-cols-3 gap-10 mb-20">
         {steps.map((step, index) => (
           <div
             key={index}
-            className="p-8 bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-2xl text-center border border-gray-100 transition-transform transform hover:-translate-y-2 hover:shadow-2xl"
+            className="p-8 bg-white shadow-xl rounded-2xl text-center border border-gray-200 transition-transform transform hover:-translate-y-2 hover:shadow-2xl"
           >
             {step.icon}
-            <h3 className="text-xl font-semibold mt-2 text-gray-800">{step.title}</h3>
+            <h3 className="text-xl font-semibold mt-3 text-gray-800">{step.title}</h3>
             <p className="text-gray-600 mt-2">{step.description}</p>
           </div>
         ))}
       </div>
 
       {/* Features Section */}
-      <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <h3 className="text-3xl font-bold text-center mb-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
         Key Features
       </h3>
-      <div className="grid md:grid-cols-3 gap-8 mb-16">
+      <div className="grid md:grid-cols-3 gap-10 mb-20">
         {features.map((feature, index) => (
           <div
             key={index}
-            className="p-8 bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-2xl text-center border border-gray-100 transition-transform transform hover:scale-105 hover:shadow-2xl"
+            className="p-8 bg-gray-50 shadow-lg rounded-2xl text-center border border-gray-200 transition-all transform hover:scale-105 hover:shadow-xl"
           >
             {feature.icon}
-            <h3 className="text-lg font-semibold mt-2 text-gray-800">{feature.title}</h3>
+            <h3 className="text-lg font-semibold mt-3 text-gray-800">{feature.title}</h3>
             <p className="text-gray-600 mt-2">{feature.description}</p>
           </div>
         ))}
       </div>
 
       {/* FAQ Section */}
-      <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-        FAQs
+      <h3 className="text-3xl font-bold text-center mb-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        Frequently Asked Questions
       </h3>
-      <div className="space-y-6 mb-16">
+      <div className="space-y-6 mb-20">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-100 shadow-lg transition-transform transform hover:scale-105"
+            className="p-6 bg-gray-50 rounded-2xl border border-gray-200 shadow-md transition-transform transform hover:scale-105"
           >
             <h4 className="text-lg font-semibold text-gray-800">{faq.question}</h4>
             <p className="text-gray-600 mt-2">{faq.answer}</p>

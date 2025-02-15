@@ -40,15 +40,15 @@ export default function Navbar() {
                             <li key={item.name}>
                                 <Link
                                     to={item.path}
-                                    className={`relative font-medium transition-colors duration-300 hover:text-blue-400 ${
-                                        location.pathname === item.path ? "text-blue-400" : "text-gray-300"
+                                    className={`relative font-medium transition-colors duration-300 hover: ${
+                                        location.pathname === item.path ? "text-yellow-400" : "text-gray-300"
                                     }`}
                                 >
                                     {item.name}
                                     {location.pathname === item.path && (
                                         <motion.div
                                             layoutId="underline"
-                                            className="absolute left-0 right-0 h-[2px] bg-blue-400 bottom-[-2px]"
+                                            className="absolute left-0 right-0 h-[2px] bg-yellow-400 bottom-[-2px]"
                                         />
                                     )}
                                 </Link>
