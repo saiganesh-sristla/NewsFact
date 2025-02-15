@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { Search, Shield, Clock, Users, Newspaper, MessageSquare } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
     const [newsText, setNewsText] = useState("");
     const [animatedText, setAnimatedText] = useState("");
     const [selectedType, setSelectedType] = useState(null);
     const [analysisResult, setAnalysisResult] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleAnalyze = async () => {
+        setLoading(true);
         if (!selectedType) {
             alert("Please select a content type first");
             return;
@@ -16,45 +19,83 @@ export default function HomePage() {
             alert("Please enter a URL or text");
             return;
         }
-
-        try {
-            const response = await fetch("https://fa3d-103-14-233-220.ngrok-free.app/predict", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ url: newsText }),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch analysis results.");
+        if(selectedType == "news"){
+            try {
+                const response = await fetch("https://6e4c-103-14-233-220.ngrok-free.app/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ url: newsText }),
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Failed to fetch analysis results.");
+                }
+    
+                const result = await response.json();
+                console.log(result);
+    
+                // Extract the key (true/false) and score
+                const [prediction, score] = Object.entries(result)[0];
+    
+                // Format the result
+                const isFake = prediction === "false";
+                const formattedResult = {
+                    label: isFake ? "Fake News" : "Real News",
+                    status: isFake ? "fake" : "real",
+                    score: (score * 100).toFixed(2) + "%",
+                    icon: isFake ? "⚠️" : "✅"
+                };
+                setLoading(false);
+                // Update UI state with the result
+                setAnalysisResult(formattedResult);
+    
+            } catch (error) {
+                console.error("Error analyzing content:", error);
+                alert("Error analyzing content. Please try again.");
             }
-
-            const result = await response.json();
-            console.log(result);
-
-            // Extract the key (true/false) and score
-            const [prediction, score] = Object.entries(result)[0];
-
-            // Format the result
-            const isFake = prediction === "false";
-            const formattedResult = {
-                label: isFake ? "Fake News" : "Real News",
-                status: isFake ? "fake" : "real",
-                score: (score * 100).toFixed(2) + "%",
-                icon: isFake ? "⚠️" : "✅"
-            };
-
-            // Update UI state with the result
-            setAnalysisResult(formattedResult);
-
-        } catch (error) {
-            console.error("Error analyzing content:", error);
-            alert("Error analyzing content. Please try again.");
         }
+        else if(selectedType == "socials"){
+            try {
+                const response = await fetch("https://fa3d-103-14-233-220.ngrok-free.app/socials", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ url: newsText }),
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Failed to fetch analysis results.");
+                }
+    
+                const result = await response.json();
+                console.log(result);
+    
+                // Extract the key (true/false) and score
+                const [prediction, score] = Object.entries(result)[0];
+    
+                // Format the result
+                const isFake = prediction === "false";
+                const formattedResult = {
+                    label: isFake ? "Fake News" : "Real News",
+                    status: isFake ? "fake" : "real",
+                    score: (score * 100).toFixed(2) + "%",
+                    icon: isFake ? "⚠️" : "✅"
+                };
+    
+                // Update UI state with the result
+                setAnalysisResult(formattedResult);
+    
+            } catch (error) {
+                console.error("Error analyzing content:", error);
+                alert("Error analyzing content. Please try again.");
+            }
+        }
+        
     };
 
-    // Typing effect
     useEffect(() => {
         const text = "Detect Misinformation";
         let index = 0;
@@ -100,20 +141,48 @@ export default function HomePage() {
             {/* Main Content */}
             <main className="flex-1 mt-16">
                 {/* Hero Section */}
-                <header className="w-full bg-gradient-to-r from-black to-gray-900 text-white pt-24 pb-32 text-center px-4">
-                    <div className="max-w-4xl mx-auto">
-                        <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
-                            {animatedText}
-                            {animatedText.length === 21 ? "" : <span className="animate-blink">|</span>}
-                        </h1>
-                        <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-300 font-light">
-                            Verify news articles, social media content, and online discussions in real-time with AI-powered detection.
-                        </p>
-                    </div>
-                </header>
+                <header className="relative w-full bg-gradient-to-r from-black via-gray-900 to-gray-800 text-white pt-32 pb-40 text-center px-6">
+            {/* Background Overlay */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+            <div className="relative max-w-5xl mx-auto">
+                {/* Animated Typing Text */}
+                <motion.h1 
+                    className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    {animatedText}
+                    <span className="text-primary">{animatedText.length === 21 ? "" : " |"}</span>
+                </motion.h1>
+
+                {/* Subtitle */}
+                <motion.p 
+                    className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-300 font-light"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                >
+                    Verify news articles, social media content, and online discussions in real-time with AI-powered detection.
+                </motion.p>
+
+                {/* CTA Button */}
+                <motion.div 
+                    className="mt-8"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.4 }}
+                >
+                    <a href="#selection" className="px-6 py-3 text-lg font-medium bg-primary text-black rounded-lg shadow-md transition-all duration-300 bg-yellow-400 hover:shadow-lg">
+                    Start Verifying Now
+                    </a>
+                </motion.div>
+            </div>
+        </header>
 
                 {/* Content Type Selection Section */}
-                <section className="w-full max-w-5xl mx-auto px-4">
+                <section id="selection" className="w-full max-w-5xl mx-auto px-4 pt-30">
                     <div className="bg-white shadow-2xl rounded-xl p-8 mt-[-64px] transform transition-all duration-300 border border-gray-200">
                         <h2 className="text-2xl font-semibold text-center mb-8 text-gray-900">Select Content Type for Analysis</h2>
 
@@ -160,7 +229,7 @@ export default function HomePage() {
                                 <Search size={20} /> Analyze
                             </button>
                         </div>
-
+                        {loading ? <span class="loading loading-spinner loading-lg"></span> : ""}
                         {/* Analysis Result */}
                         {analysisResult && (
                             <div className={`mt-8 p-6 rounded-xl border-2 ${

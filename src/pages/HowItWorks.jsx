@@ -54,60 +54,66 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto py-16 px-6">
+    <div className="max-w-6xl mx-auto py-16 px-6 mt-5">
       {/* Header Section */}
-      <h2 className="text-4xl font-bold text-center mb-10">How It Works</h2>
+      <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        How It Works
+      </h2>
 
       {/* Steps Section */}
       <div className="grid md:grid-cols-3 gap-8 mb-16">
         {steps.map((step, index) => (
           <div
             key={index}
-            className="p-6 bg-white shadow-lg rounded-xl text-center border border-gray-200 transition-transform transform hover:-translate-y-2 hover:shadow-xl"
+            className="p-8 bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-2xl text-center border border-gray-100 transition-transform transform hover:-translate-y-2 hover:shadow-2xl"
           >
             {step.icon}
-            <h3 className="text-xl font-semibold mt-2">{step.title}</h3>
-            <p className="text-gray-600">{step.description}</p>
+            <h3 className="text-xl font-semibold mt-2 text-gray-800">{step.title}</h3>
+            <p className="text-gray-600 mt-2">{step.description}</p>
           </div>
         ))}
       </div>
 
       {/* Features Section */}
-      <h3 className="text-3xl font-bold text-center mb-8">Key Features</h3>
+      <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        Key Features
+      </h3>
       <div className="grid md:grid-cols-3 gap-8 mb-16">
         {features.map((feature, index) => (
           <div
             key={index}
-            className="p-6 bg-white shadow-md rounded-xl text-center border border-gray-200 transition-transform transform hover:scale-105 hover:shadow-xl"
+            className="p-8 bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-2xl text-center border border-gray-100 transition-transform transform hover:scale-105 hover:shadow-2xl"
           >
             {feature.icon}
-            <h3 className="text-lg font-semibold mt-2">{feature.title}</h3>
-            <p className="text-gray-600">{feature.description}</p>
+            <h3 className="text-lg font-semibold mt-2 text-gray-800">{feature.title}</h3>
+            <p className="text-gray-600 mt-2">{feature.description}</p>
           </div>
         ))}
       </div>
 
       {/* FAQ Section */}
-      <h3 className="text-3xl font-bold text-center mb-8">FAQs</h3>
+      <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        FAQs
+      </h3>
       <div className="space-y-6 mb-16">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="p-4 bg-gray-50 rounded-lg border border-gray-200 transition-transform transform hover:scale-105"
+            className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-100 shadow-lg transition-transform transform hover:scale-105"
           >
-            <h4 className="text-lg font-semibold">{faq.question}</h4>
-            <p className="text-gray-600 mt-1">{faq.answer}</p>
+            <h4 className="text-lg font-semibold text-gray-800">{faq.question}</h4>
+            <p className="text-gray-600 mt-2">{faq.answer}</p>
           </div>
         ))}
       </div>
 
       {/* Call to Action (CTA) */}
-      <div className="bg-blue-600 text-white p-8 text-center rounded-xl shadow-lg">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-12 text-center rounded-2xl shadow-2xl">
         <h3 className="text-2xl font-semibold mb-2">Stay Informed, Stay Safe!</h3>
-        <p className="text-lg mb-4">Start analyzing news articles now with NewsFact.</p>
+        <p className="text-lg mb-6">Start analyzing news articles now with NewsFact.</p>
         <Link
           to="/"
-          className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-md hover:bg-gray-200 transition"
+          className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition-transform transform hover:scale-105"
         >
           Get Started
         </Link>
