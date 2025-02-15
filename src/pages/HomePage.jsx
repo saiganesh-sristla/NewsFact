@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { Search, Menu, X, Shield, Clock, Users, Newspaper, MessageSquare } from "lucide-react";
+import { Search, Shield, Clock, Users, Newspaper, MessageSquare } from "lucide-react";
 
 export default function HomePage() {
     const [newsText, setNewsText] = useState("");
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [animatedText, setAnimatedText] = useState("");
     const [selectedType, setSelectedType] = useState(null);
     const [analysisResult, setAnalysisResult] = useState(null);
@@ -55,18 +54,6 @@ export default function HomePage() {
         }
     };
 
-    // Close menu when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (isMenuOpen && !event.target.closest('nav')) {
-                setIsMenuOpen(false);
-            }
-        };
-
-        document.addEventListener('click', handleClickOutside);
-        return () => document.removeEventListener('click', handleClickOutside);
-    }, [isMenuOpen]);
-
     // Typing effect
     useEffect(() => {
         const text = "Detect Misinformation";
@@ -108,47 +95,7 @@ export default function HomePage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100 flex flex-col text-gray-900">
-            {/* Navbar */}
-            <nav className="w-full bg-black text-white py-4 fixed top-0 z-50 shadow-lg">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center">
-                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">NewsFact</h1>
-
-                        <button
-                            className="md:hidden p-2 rounded-lg transition-colors duration-200 hover:bg-gray-800"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setIsMenuOpen(!isMenuOpen);
-                            }}
-                        >
-                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
-
-                        <ul className="hidden md:flex space-x-8">
-                            {["Home", "How It Works", "Trending Alerts", "About"].map((item) => (
-                                <li key={item} className="hover:text-gray-300 transition-colors duration-200 cursor-pointer font-medium">
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Mobile Menu */}
-                    <div className={`md:hidden absolute top-full left-0 w-full bg-black border-t border-gray-800 shadow-xl transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"} ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
-                        <ul className="py-4 px-6 space-y-4">
-                            {["Home", "How It Works", "Trending Alerts", "About"].map((item) => (
-                                <li
-                                    key={item}
-                                    className="hover:text-gray-300 transition-colors duration-200 cursor-pointer font-medium py-2"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            
 
             {/* Main Content */}
             <main className="flex-1 mt-16">
@@ -175,10 +122,11 @@ export default function HomePage() {
                             {contentTypes.map((content) => (
                                 <div
                                     key={content.type}
-                                    className={`p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer hover:shadow-md ${selectedType === content.type
-                                        ? 'border-black bg-gray-50'
-                                        : 'border-gray-200 hover:border-gray-300'
-                                        }`}
+                                    className={`p-6 rounded-xl border-2 transition-all duration-200 cursor-pointer hover:shadow-md ${
+                                        selectedType === content.type
+                                            ? 'border-black bg-gray-50'
+                                            : 'border-gray-200 hover:border-gray-300'
+                                    }`}
                                     onClick={() => setSelectedType(content.type)}
                                 >
                                     <div className="text-center">
@@ -203,10 +151,11 @@ export default function HomePage() {
                             <button
                                 onClick={handleAnalyze}
                                 disabled={!selectedType || !newsText}
-                                className={`w-full md:w-auto px-8 py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 shadow-lg ${!selectedType || !newsText
-                                    ? 'bg-gray-300 cursor-not-allowed'
-                                    : 'bg-black hover:bg-gray-900 text-white'
-                                    }`}
+                                className={`w-full md:w-auto px-8 py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 shadow-lg ${
+                                    !selectedType || !newsText
+                                        ? 'bg-gray-300 cursor-not-allowed'
+                                        : 'bg-black hover:bg-gray-900 text-white'
+                                }`}
                             >
                                 <Search size={20} /> Analyze
                             </button>
@@ -214,24 +163,27 @@ export default function HomePage() {
 
                         {/* Analysis Result */}
                         {analysisResult && (
-                            <div className={`mt-8 p-6 rounded-xl border-2 ${analysisResult.status === 'fake' 
-                                ? 'bg-red-50 border-red-200' 
-                                : 'bg-green-50 border-green-200'
-                                } transition-all duration-300`}>
+                            <div className={`mt-8 p-6 rounded-xl border-2 ${
+                                analysisResult.status === 'fake' 
+                                    ? 'bg-red-50 border-red-200' 
+                                    : 'bg-green-50 border-green-200'
+                            } transition-all duration-300`}>
                                 <div className="flex flex-col items-center text-center">
                                     <span className="text-4xl mb-4">{analysisResult.icon}</span>
-                                    <h3 className={`text-2xl font-bold mb-2 ${analysisResult.status === 'fake' 
-                                        ? 'text-red-700' 
-                                        : 'text-green-700'
-                                        }`}>
+                                    <h3 className={`text-2xl font-bold mb-2 ${
+                                        analysisResult.status === 'fake' 
+                                            ? 'text-red-700' 
+                                            : 'text-green-700'
+                                    }`}>
                                         {analysisResult.label}
                                     </h3>
                                     <div className="flex items-center gap-2 mt-2">
                                         <span className="text-gray-600">Confidence:</span>
-                                        <span className={`text-xl font-semibold ${analysisResult.status === 'fake' 
-                                            ? 'text-red-600' 
-                                            : 'text-green-600'
-                                            }`}>
+                                        <span className={`text-xl font-semibold ${
+                                            analysisResult.status === 'fake' 
+                                                ? 'text-red-600' 
+                                                : 'text-green-600'
+                                        }`}>
                                             {analysisResult.score}
                                         </span>
                                     </div>
