@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Search, Shield, Clock, Users, Newspaper, MessageSquare, Camera } from "lucide-react";
 import { motion } from "framer-motion";
 import { text } from "framer-motion/client";
-import  ModernLoader  from "../components/ModernLoader";
+import ModernLoader from "../components/ModernLoader";
 
 export default function HomePage() {
     const [newsText, setNewsText] = useState("");
@@ -31,7 +31,7 @@ export default function HomePage() {
                     },
                     body: JSON.stringify({ url: newsText }),
                 });
-                
+
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch analysis results.");
@@ -51,7 +51,7 @@ export default function HomePage() {
                     score: (score * 100).toFixed(2) + "%",
                     icon: isFake ? "⚠️" : "✅"
                 };
-                
+
                 // Update UI state with the result
                 setAnalysisResult(formattedResult);
 
@@ -59,7 +59,7 @@ export default function HomePage() {
                 console.error("Error analyzing content:", error);
                 alert("Please enter a valid URL");
             }
-            finally{
+            finally {
                 setIsLoading(false)
             }
         }
@@ -99,7 +99,7 @@ export default function HomePage() {
 
             } catch (error) {
                 console.error("Error analyzing content:", error);
-            }finally{
+            } finally {
                 setIsLoading(false)
             }
         }
@@ -147,15 +147,15 @@ export default function HomePage() {
             alert("Please upload an image first!");
             return;
         }
-    
+
         const formData = new FormData();
         formData.append("file", selectedImage);
-    
+
         // Simulating API call to verify misinformation
         fetch("https://16e5-103-14-233-220.ngrok-free.app/getimage", {
             method: "POST",
             body: formData,
-            headers:{
+            headers: {
                 "Accept": "application/json"
             }
         })
@@ -176,11 +176,11 @@ export default function HomePage() {
             })
             .catch(error => {
                 console.error("Error verifying image:", error);
-            }).finally(()=>{
+            }).finally(() => {
                 setIsLoading(false)
             });
     };
-    
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100 flex flex-col text-gray-900">
@@ -190,161 +190,164 @@ export default function HomePage() {
             <main className="flex-1 mt-16">
                 {/* Hero Section */}
                 <header className="h-screen relative w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-32 pb-40 text-center px-6 overflow-hidden">
-            {/* Background Overlay */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+                    {/* Background Overlay */}
+                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
-            {/* Floating Animation for Hero Section */}
-            <motion.div
-                className="relative max-w-5xl mx-auto my-[8%]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-            >
-                {/* Animated Typing Text */}
-                <motion.h1
-                    className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                >
-                    {animatedText}
-                    <span className="text-primary animate-pulse">{animatedText.length === 21 ? "" : " |"}</span>
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                    className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-300 font-light"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                >
-                    Verify news articles, social media content, and online discussions in real-time with AI-powered detection.
-                </motion.p>
-
-                {/* CTA Button */}
-                <motion.div
-                    className="mt-8"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                >
-                    <motion.button
-                        whileHover={{ scale: 1.1, boxShadow: "0px 0px 12px rgba(255, 193, 7, 0.7)" }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-8 py-4 bg-yellow-400 text-gray-900 rounded-lg font-semibold text-lg shadow-lg hover:bg-yellow-300 transition-all duration-300 animate-bounce"
+                    {/* Floating Animation for Hero Section */}
+                    <motion.div
+                        className="relative max-w-5xl mx-auto my-[8%]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}
                     >
-                        <a href="#selection">Start Verifying Now</a>
-                    </motion.button>
-                </motion.div>
-            </motion.div>
-        </header>
+                        {/* Animated Typing Text */}
+                        <motion.h1
+                            className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                        >
+                            {animatedText}
+                            <span className="text-primary animate-pulse">{animatedText.length === 21 ? "" : " |"}</span>
+                        </motion.h1>
+
+                        {/* Subtitle */}
+                        <motion.p
+                            className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-300 font-light"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.3 }}
+                        >
+                            Verify news articles, social media content, and online discussions in real-time with AI-powered detection.
+                        </motion.p>
+
+                        {/* CTA Button */}
+                        <motion.div
+                            className="mt-8"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.1, boxShadow: "0px 0px 12px rgba(255, 193, 7, 0.7)" }}
+                                whileTap={{ scale: 0.95 }}
+                                className="px-8 py-4 bg-yellow-400 text-gray-900 rounded-lg font-semibold text-lg shadow-lg hover:bg-yellow-300 transition-all duration-300 animate-bounce"
+                            >
+                                <a href="#selection">Start Verifying Now</a>
+                            </motion.button>
+                        </motion.div>
+                    </motion.div>
+                </header>
 
 
                 {/* Content Type Selection Section */}
                 <section id="selection" className="w-full max-w-5xl mx-auto px-6 pt-40 pb-14">
-    <div className="bg-white shadow-xl rounded-2xl p-10 mt-[-64px] border border-gray-200 transition-all duration-300">
-        <h2 className="text-3xl font-bold text-center mb-10 text-gray-900">Select Content Type for Analysis</h2>
+                    <div className="bg-white shadow-xl rounded-2xl p-10 mt-[-64px] border border-gray-200 transition-all duration-300">
+                        <h2 className="text-3xl font-bold text-center mb-10 text-gray-900">Select Content Type for Analysis</h2>
 
-        {/* Content Type Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {contentTypes.map((content) => (
-                <div
-                    key={content.type}
-                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-md ${selectedType === content.type
-                        ? 'border-black bg-gray-300 shadow-2xl'
-                        : 'border-gray-300 hover:border-gray-500'
-                        }`}
-                    onClick={() => setSelectedType(content.type)}
-                >
-                    <div className="flex flex-col items-center text-center">
-                        {content.icon}
-                        <h3 className="text-xl font-semibold mt-3">{content.title}</h3>
-                        <p className="text-gray-600 text-sm mt-1">{content.description}</p>
+                        {/* Content Type Cards */}
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                            {contentTypes.map((content) => (
+                                <div
+                                    key={content.type}
+                                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-md ${selectedType === content.type
+                                        ? 'border-black bg-gray-300 shadow-2xl'
+                                        : 'border-gray-300 hover:border-gray-500'
+                                        }`}
+                                    onClick={() => {
+                                        setNewsText("");
+                                        setAnalysisResult(null);
+                                        setSelectedType(content.type)}}
+                                >
+                                    <div className="flex flex-col items-center text-center">
+                                        {content.icon}
+                                        <h3 className="text-xl font-semibold mt-3">{content.title}</h3>
+                                        <p className="text-gray-600 text-sm mt-1">{content.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+
+                            {/* New Card for Image Upload */}
+                            <div
+                                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-md ${selectedType === 'image'
+                                    ? 'border-black bg-gray-300 shadow-2xl'
+                                    : 'border-gray-300 hover:border-gray-500'
+                                    }`}
+                                onClick={() => setSelectedType('image')}
+                            >
+                                <div className="flex flex-col items-center text-center">
+                                    <Camera className="w-8 h-8 mb-3 text-red-500" />
+                                    <h3 className="text-xl font-semibold mt-3">Verify Image</h3>
+                                    <p className="text-gray-600 text-sm mt-1">Upload an image to verify misinformation</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* URL Input or Image Upload */}
+                        <div className="flex flex-col md:flex-row items-center gap-4">
+                            {selectedType !== 'image' ? (
+                                <input
+                                    type="text"
+                                    placeholder={selectedType ? contentTypes.find(c => c.type === selectedType).placeholder : "Select a content type above..."}
+                                    className="w-full outline-none text-lg px-5 py-3 rounded-lg border-2 border-gray-300 focus:border-black transition-colors duration-300 shadow-sm"
+                                    value={newsText}
+                                    onChange={(e) => setNewsText(e.target.value)}
+                                    disabled={!selectedType}
+                                />
+                            ) : (
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="w-full px-5 py-3 border-2 border-gray-300 rounded-lg focus:border-black transition-colors duration-300 shadow-sm"
+                                    onChange={handleImageUpload}
+                                />
+                            )}
+                            <button
+                                onClick={selectedType === 'image' ? handleImageAnalyze : handleAnalyze}
+                                disabled={!selectedType || (selectedType !== 'image' && !newsText)}
+                                className={`w-full md:w-auto px-8 py-3 rounded-lg flex items-center justify-center gap-2 text-lg font-medium transition-all duration-300 shadow-lg ${!selectedType || (selectedType !== 'image' && !newsText)
+                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    : 'bg-black hover:bg-gray-900 text-white'
+                                    }`}
+                            >
+                                <Search size={22} /> Analyze
+                            </button>
+                        </div>
+
+                        {/* Loading Indicator */}
+                        <ModernLoader isLoading={isLoading} />
+
+                        {/* Analysis Result */}
+                        {analysisResult && (
+                            <div
+                                className={`mt-10 p-8 rounded-2xl border-2 shadow-md text-center transition-all duration-300 ${analysisResult.status === 'fake' ? 'bg-red-50 border-red-300' : 'bg-green-50 border-green-300'
+                                    }`}
+                            >
+                                <div className="flex flex-col items-center">
+                                    <span className="text-5xl mb-4">{analysisResult.icon}</span>
+                                    <h3
+                                        className={`text-2xl font-bold ${analysisResult.status === 'fake' ? 'text-red-700' : 'text-green-700'
+                                            }`}
+                                    >
+                                        {analysisResult.label}
+                                    </h3>
+                                    <div className="flex items-center gap-2 mt-2">
+                                        <span className="text-gray-600 text-lg">Confidence:</span>
+                                        <span
+                                            className={`text-xl font-semibold ${analysisResult.status === 'fake' ? 'text-red-600' : 'text-green-600'
+                                                }`}
+                                        >
+                                            {analysisResult.score}
+                                        </span>
+                                    </div>
+                                    <p className="text-gray-600 text-sm mt-4">
+                                        This analysis was performed using our advanced AI algorithms.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                </div>
-            ))}
-
-            {/* New Card for Image Upload */}
-            <div
-                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-md ${selectedType === 'image'
-                    ? 'border-black bg-gray-300 shadow-2xl'
-                    : 'border-gray-300 hover:border-gray-500'
-                    }`}
-                onClick={() => setSelectedType('image')}
-            >
-                <div className="flex flex-col items-center text-center">
-                    <Camera className="w-8 h-8 mb-3 text-red-500"/>
-                    <h3 className="text-xl font-semibold mt-3">Verify Image</h3>
-                    <p className="text-gray-600 text-sm mt-1">Upload an image to verify misinformation</p>
-                </div>
-            </div>
-        </div>
-
-        {/* URL Input or Image Upload */}
-        <div className="flex flex-col md:flex-row items-center gap-4">
-            {selectedType !== 'image' ? (
-                <input
-                    type="text"
-                    placeholder={selectedType ? contentTypes.find(c => c.type === selectedType).placeholder : "Select a content type above..."}
-                    className="w-full outline-none text-lg px-5 py-3 rounded-lg border-2 border-gray-300 focus:border-black transition-colors duration-300 shadow-sm"
-                    value={newsText}
-                    onChange={(e) => setNewsText(e.target.value)}
-                    disabled={!selectedType}
-                />
-            ) : (
-                <input
-    type="file"
-    accept="image/*"
-    className="w-full px-5 py-3 border-2 border-gray-300 rounded-lg focus:border-black transition-colors duration-300 shadow-sm"
-    onChange={handleImageUpload}
-/>
-            )}
-            <button
-                onClick={selectedType === 'image' ? handleImageAnalyze : handleAnalyze}
-                disabled={!selectedType || (selectedType !== 'image' && !newsText)}
-                className={`w-full md:w-auto px-8 py-3 rounded-lg flex items-center justify-center gap-2 text-lg font-medium transition-all duration-300 shadow-lg ${!selectedType || (selectedType !== 'image' && !newsText)
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-black hover:bg-gray-900 text-white'
-                    }`}
-            >
-                <Search size={22} /> Analyze
-            </button>
-        </div>
-
-        {/* Loading Indicator */}
-        <ModernLoader isLoading={isLoading} />
-
-        {/* Analysis Result */}
-        {analysisResult && (
-            <div
-                className={`mt-10 p-8 rounded-2xl border-2 shadow-md text-center transition-all duration-300 ${analysisResult.status === 'fake' ? 'bg-red-50 border-red-300' : 'bg-green-50 border-green-300'
-                    }`}
-            >
-                <div className="flex flex-col items-center">
-                    <span className="text-5xl mb-4">{analysisResult.icon}</span>
-                    <h3
-                        className={`text-2xl font-bold ${analysisResult.status === 'fake' ? 'text-red-700' : 'text-green-700'
-                            }`}
-                    >
-                        {analysisResult.label}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-2">
-                        <span className="text-gray-600 text-lg">Confidence:</span>
-                        <span
-                            className={`text-xl font-semibold ${analysisResult.status === 'fake' ? 'text-red-600' : 'text-green-600'
-                                }`}
-                        >
-                            {analysisResult.score}
-                        </span>
-                    </div>
-                    <p className="text-gray-600 text-sm mt-4">
-                        This analysis was performed using our advanced AI algorithms.
-                    </p>
-                </div>
-            </div>
-        )}
-    </div>
-</section>
+                </section>
 
 
 
