@@ -23,7 +23,7 @@ export default function HomePage() {
         }
         if (selectedType == "news") {
             try {
-                const response = await fetch("https://6e4c-103-14-233-220.ngrok-free.app/news", {
+                const response = await fetch("https://16e5-103-14-233-220.ngrok-free.app/news", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function HomePage() {
         else if (selectedType == "social") {
             try {
                 const socialText = newsText.replace("")
-                const response = await fetch("https://6e4c-103-14-233-220.ngrok-free.app/social", {
+                const response = await fetch("https://16e5-103-14-233-220.ngrok-free.app/social", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -145,7 +145,7 @@ export default function HomePage() {
     
         // Simulating API call to verify misinformation
         setLoading(true);
-        fetch("https://6e4c-103-14-233-220.ngrok-free.app/getimage", {
+        fetch("https://16e5-103-14-233-220.ngrok-free.app/getimage", {
             method: "POST",
             body: formData,
             headers:{
