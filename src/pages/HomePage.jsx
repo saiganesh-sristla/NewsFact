@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { Search, Shield, Clock, Users, Newspaper, MessageSquare, Camera } from "lucide-react";
 import { motion } from "framer-motion";
 import { text } from "framer-motion/client";
+import  ModernLoader  from "../components/ModernLoader";
 
 export default function HomePage() {
     const [newsText, setNewsText] = useState("");
     const [animatedText, setAnimatedText] = useState("");
     const [selectedType, setSelectedType] = useState(null);
     const [analysisResult, setAnalysisResult] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const [selectedImage, setSelectedImage] = useState(null);
 
     const handleAnalyze = async () => {
-        setLoading(true);
         if (!selectedType) {
             alert("Please select a content type first");
             return;
@@ -23,6 +23,7 @@ export default function HomePage() {
         }
         if (selectedType == "news") {
             try {
+                setIsLoading(true)
                 const response = await fetch("https://16e5-103-14-233-220.ngrok-free.app/news", {
                     method: "POST",
                     headers: {
@@ -30,6 +31,7 @@ export default function HomePage() {
                     },
                     body: JSON.stringify({ url: newsText }),
                 });
+                
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch analysis results.");
@@ -49,17 +51,21 @@ export default function HomePage() {
                     score: (score * 100).toFixed(2) + "%",
                     icon: isFake ? "⚠️" : "✅"
                 };
-                setLoading(false);
+                
                 // Update UI state with the result
                 setAnalysisResult(formattedResult);
 
             } catch (error) {
                 console.error("Error analyzing content:", error);
-                alert("Error analyzing content. Please try again.");
+                alert("Please enter a valid URL");
+            }
+            finally{
+                setIsLoading(false)
             }
         }
         else if (selectedType == "social") {
             try {
+                setIsLoading(true)
                 const socialText = newsText.replace("")
                 const response = await fetch("https://16e5-103-14-233-220.ngrok-free.app/social", {
                     method: "POST",
@@ -82,7 +88,7 @@ export default function HomePage() {
                 // Format the result
                 const isFake = prediction === "false";
                 const formattedResult = {
-                    label: isFake ? "Fake News" : "Real News",
+                    label: isFake ? "Fake Information" : "Real Information",
                     status: isFake ? "fake" : "real",
                     score: (score * 100).toFixed(2) + "%",
                     icon: isFake ? "⚠️" : "✅"
@@ -93,7 +99,8 @@ export default function HomePage() {
 
             } catch (error) {
                 console.error("Error analyzing content:", error);
-                alert("Error analyzing content. Please try again.");
+            }finally{
+                setIsLoading(false)
             }
         }
 
@@ -135,6 +142,7 @@ export default function HomePage() {
         setSelectedImage(file);
     };
     const handleImageAnalyze = () => {
+        setIsLoading(true);
         if (!selectedImage) {
             alert("Please upload an image first!");
             return;
@@ -144,7 +152,6 @@ export default function HomePage() {
         formData.append("file", selectedImage);
     
         // Simulating API call to verify misinformation
-        setLoading(true);
         fetch("https://16e5-103-14-233-220.ngrok-free.app/getimage", {
             method: "POST",
             body: formData,
@@ -159,18 +166,18 @@ export default function HomePage() {
                 // Format the result
                 const isFake = prediction === "false";
                 const formattedResult = {
-                    label: isFake ? "Fake News" : "Real News",
+                    label: isFake ? "Fake Information" : "Real Information",
                     status: isFake ? "fake" : "real",
                     score: (score * 100).toFixed(2) + "%",
                     icon: isFake ? "⚠️" : "✅"
                 };
-
                 // Update UI state with the result
                 setAnalysisResult(formattedResult);
             })
             .catch(error => {
-                setLoading(false);
                 console.error("Error verifying image:", error);
+            }).finally(()=>{
+                setIsLoading(false)
             });
     };
     
@@ -305,7 +312,7 @@ export default function HomePage() {
         </div>
 
         {/* Loading Indicator */}
-        {loading && <span className="loading loading-spinner loading-lg mt-6"></span>}
+        <ModernLoader isLoading={isLoading} />
 
         {/* Analysis Result */}
         {analysisResult && (
