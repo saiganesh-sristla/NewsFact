@@ -5,7 +5,6 @@ import HowItWorks from './pages/HowItWorks';
 import NavBar from './components/NavBar';
 import AboutUs from './pages/About';
 import PrecautionsPage from './pages/PrecautionsPage';
-import Nav from './components/Nav';
 
 
 function App() {

@@ -31,10 +31,10 @@ export default function Navbar() {
                 <Link to="/" className="text-4xl font-extrabold tracking-wide">
                     <motion.span
                         className="relative"
-                        animate={{ color: ["#ff9900"] }}
+                        animate={{ color: ["#fff"] }}
                         transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                     >
-                        NewsFact.AI
+                        NewsFact.
                     </motion.span>
                 </Link>
 

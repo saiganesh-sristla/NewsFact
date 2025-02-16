@@ -8,7 +8,7 @@ const AboutUs = () => {
                 {/* Hero Section */}
                 <div className="text-center mb-16">
                     <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                        About NewsFact.AI
+                        About NewsFact.
                     </h1>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         NewsFact is an AI-powered fact-checking platform designed to help users verify the authenticity of news articles, social media posts, and online discussions. Our mission is to combat misinformation and promote truth in digital media.

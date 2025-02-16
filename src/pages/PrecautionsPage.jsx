@@ -36,7 +36,7 @@ const PrecautionsPage = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto py-16 px-6 mt-5">
+    <div className="max-w-6xl mx-auto py-16 px-6 mt-10">
       {/* Header Section */}
       <h1 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
         Precautions While Reading News
