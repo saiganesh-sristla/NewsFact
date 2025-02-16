@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Shield, Clock, Users, Newspaper, MessageSquare } from "lucide-react";
+import { Search, Shield, Clock, Users, Newspaper, MessageSquare, Camera } from "lucide-react";
 import { motion } from "framer-motion";
 import { text } from "framer-motion/client";
 
@@ -9,6 +9,7 @@ export default function HomePage() {
     const [selectedType, setSelectedType] = useState(null);
     const [analysisResult, setAnalysisResult] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const handleAnalyze = async () => {
         setLoading(true);
@@ -129,6 +130,51 @@ export default function HomePage() {
         }
     ];
 
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0] || null;
+        setSelectedImage(file);
+    };
+    const handleImageAnalyze = () => {
+        if (!selectedImage) {
+            alert("Please upload an image first!");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("file", selectedImage);
+    
+        // Simulating API call to verify misinformation
+        setLoading(true);
+        fetch("https://6e4c-103-14-233-220.ngrok-free.app/getimage", {
+            method: "POST",
+            body: formData,
+            headers:{
+                "Accept": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const [prediction, score] = Object.entries(data)[0];
+
+                // Format the result
+                const isFake = prediction === "false";
+                const formattedResult = {
+                    label: isFake ? "Fake News" : "Real News",
+                    status: isFake ? "fake" : "real",
+                    score: (score * 100).toFixed(2) + "%",
+                    icon: isFake ? "⚠️" : "✅"
+                };
+
+                // Update UI state with the result
+                setAnalysisResult(formattedResult);
+            })
+            .catch(error => {
+                setLoading(false);
+                console.error("Error verifying image:", error);
+            });
+    };
+    
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100 flex flex-col text-gray-900">
 
@@ -136,48 +182,56 @@ export default function HomePage() {
             {/* Main Content */}
             <main className="flex-1 mt-16">
                 {/* Hero Section */}
-                <header className="h-screen relative w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-32 pb-40 text-center px-6">
-                    {/* Background Overlay */}
-                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+                <header className="h-screen relative w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-32 pb-40 text-center px-6 overflow-hidden">
+            {/* Background Overlay */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
-                    <div className="relative max-w-5xl mx-auto my-[8%]">
-                        {/* Animated Typing Text */}
-                        <motion.h1
-                            className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            {animatedText}
-                            <span className="text-primary">{animatedText.length === 21 ? "" : " |"}</span>
-                        </motion.h1>
+            {/* Floating Animation for Hero Section */}
+            <motion.div
+                className="relative max-w-5xl mx-auto my-[8%]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >
+                {/* Animated Typing Text */}
+                <motion.h1
+                    className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                >
+                    {animatedText}
+                    <span className="text-primary animate-pulse">{animatedText.length === 21 ? "" : " |"}</span>
+                </motion.h1>
 
-                        {/* Subtitle */}
-                        <motion.p
-                            className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-300 font-light"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.2 }}
-                        >
-                            Verify news articles, social media content, and online discussions in real-time with AI-powered detection.
-                        </motion.p>
+                {/* Subtitle */}
+                <motion.p
+                    className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-300 font-light"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.3 }}
+                >
+                    Verify news articles, social media content, and online discussions in real-time with AI-powered detection.
+                </motion.p>
 
-                        {/* CTA Button */}
-                        <motion.div
-                            className="mt-8"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.4 }}
-                        >
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 bg-yellow-400 text-gray-900 rounded-lg font-semibold text-lg shadow-lg hover:bg-yellow-300 transition-colors duration-200"
-                            ><a href="#selection">Start Verifying Now</a>   
-                            </motion.button>
-                        </motion.div>
-                    </div>
-                </header>
+                {/* CTA Button */}
+                <motion.div
+                    className="mt-8"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                >
+                    <motion.button
+                        whileHover={{ scale: 1.1, boxShadow: "0px 0px 12px rgba(255, 193, 7, 0.7)" }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-8 py-4 bg-yellow-400 text-gray-900 rounded-lg font-semibold text-lg shadow-lg hover:bg-yellow-300 transition-all duration-300 animate-bounce"
+                    >
+                        <a href="#selection">Start Verifying Now</a>
+                    </motion.button>
+                </motion.div>
+            </motion.div>
+        </header>
+
 
                 {/* Content Type Selection Section */}
                 <section id="selection" className="w-full max-w-5xl mx-auto px-6 pt-40 pb-14">
@@ -185,7 +239,7 @@ export default function HomePage() {
         <h2 className="text-3xl font-bold text-center mb-10 text-gray-900">Select Content Type for Analysis</h2>
 
         {/* Content Type Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {contentTypes.map((content) => (
                 <div
                     key={content.type}
@@ -202,22 +256,46 @@ export default function HomePage() {
                     </div>
                 </div>
             ))}
+
+            {/* New Card for Image Upload */}
+            <div
+                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-md ${selectedType === 'image'
+                    ? 'border-black bg-gray-300 shadow-2xl'
+                    : 'border-gray-300 hover:border-gray-500'
+                    }`}
+                onClick={() => setSelectedType('image')}
+            >
+                <div className="flex flex-col items-center text-center">
+                    <Camera className="w-8 h-8 mb-3 text-red-500"/>
+                    <h3 className="text-xl font-semibold mt-3">Verify Image</h3>
+                    <p className="text-gray-600 text-sm mt-1">Upload an image to verify misinformation</p>
+                </div>
+            </div>
         </div>
 
-        {/* URL Input */}
+        {/* URL Input or Image Upload */}
         <div className="flex flex-col md:flex-row items-center gap-4">
-            <input
-                type="text"
-                placeholder={selectedType ? contentTypes.find(c => c.type === selectedType).placeholder : "Select a content type above..."}
-                className="w-full outline-none text-lg px-5 py-3 rounded-lg border-2 border-gray-300 focus:border-black transition-colors duration-300 shadow-sm"
-                value={newsText}
-                onChange={(e) => setNewsText(e.target.value)}
-                disabled={!selectedType}
-            />
+            {selectedType !== 'image' ? (
+                <input
+                    type="text"
+                    placeholder={selectedType ? contentTypes.find(c => c.type === selectedType).placeholder : "Select a content type above..."}
+                    className="w-full outline-none text-lg px-5 py-3 rounded-lg border-2 border-gray-300 focus:border-black transition-colors duration-300 shadow-sm"
+                    value={newsText}
+                    onChange={(e) => setNewsText(e.target.value)}
+                    disabled={!selectedType}
+                />
+            ) : (
+                <input
+    type="file"
+    accept="image/*"
+    className="w-full px-5 py-3 border-2 border-gray-300 rounded-lg focus:border-black transition-colors duration-300 shadow-sm"
+    onChange={handleImageUpload}
+/>
+            )}
             <button
-                onClick={handleAnalyze}
-                disabled={!selectedType || !newsText}
-                className={`w-full md:w-auto px-8 py-3 rounded-lg flex items-center justify-center gap-2 text-lg font-medium transition-all duration-300 shadow-lg ${!selectedType || !newsText
+                onClick={selectedType === 'image' ? handleImageAnalyze : handleAnalyze}
+                disabled={!selectedType || (selectedType !== 'image' && !newsText)}
+                className={`w-full md:w-auto px-8 py-3 rounded-lg flex items-center justify-center gap-2 text-lg font-medium transition-all duration-300 shadow-lg ${!selectedType || (selectedType !== 'image' && !newsText)
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-black hover:bg-gray-900 text-white'
                     }`}
@@ -260,6 +338,7 @@ export default function HomePage() {
         )}
     </div>
 </section>
+
 
 
                 {/* Features Section */}
