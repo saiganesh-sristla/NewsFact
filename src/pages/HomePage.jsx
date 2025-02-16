@@ -133,7 +133,7 @@ export default function HomePage() {
             icon: <MessageSquare className="w-8 h-8 mb-3 text-purple-500" />,
             title: "Discussion Forum / Social Media",
             description: "Check content from Reddit, forums, blogs",
-            placeholder: "Paste a discussion thread URL..."
+            placeholder: "Paste a discussion thread Content..."
         }
     ];
 
