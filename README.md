@@ -100,7 +100,9 @@ POST /analyze
 ## Contributors
 
 - **Saiganesh Sristla** (Frontend Developer)
-- **Your Team Members Here**
+- **Shobhit Singh** (Frontend Developer)
+- **Abhay Shinde** (AI/ML Developer)
+- **Abhay Jaiswal** (Backend Developer)
 
 ## License
 
